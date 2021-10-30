@@ -59,7 +59,7 @@ namespace RSSUygulamasi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 350);
+            this.ClientSize = new System.Drawing.Size(705, 289);
             this.Controls.Add(this.btnSil);
             this.Controls.Add(this.dgwRss);
             this.Name = "frmRssSil";

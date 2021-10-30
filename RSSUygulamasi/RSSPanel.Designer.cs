@@ -34,11 +34,11 @@ namespace RSSUygulamasi
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.rSSEKLEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rSSSİLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yenileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.yenileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +71,13 @@ namespace RSSUygulamasi
             this.rSSSİLToolStripMenuItem.Text = "RSS SİL";
             this.rSSSİLToolStripMenuItem.Click += new System.EventHandler(this.rSSSİLToolStripMenuItem_Click);
             // 
+            // yenileToolStripMenuItem
+            // 
+            this.yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
+            this.yenileToolStripMenuItem.Size = new System.Drawing.Size(76, 32);
+            this.yenileToolStripMenuItem.Text = "Yenile";
+            this.yenileToolStripMenuItem.Click += new System.EventHandler(this.yenileToolStripMenuItem_Click);
+            // 
             // webBrowser1
             // 
             this.webBrowser1.Location = new System.Drawing.Point(388, 39);
@@ -89,9 +96,9 @@ namespace RSSUygulamasi
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(0, 39);
+            this.listBox1.Location = new System.Drawing.Point(12, 39);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(366, 84);
+            this.listBox1.Size = new System.Drawing.Size(354, 84);
             this.listBox1.TabIndex = 5;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -104,13 +111,6 @@ namespace RSSUygulamasi
             this.listBox2.Size = new System.Drawing.Size(354, 436);
             this.listBox2.TabIndex = 6;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
-            // 
-            // yenileToolStripMenuItem
-            // 
-            this.yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
-            this.yenileToolStripMenuItem.Size = new System.Drawing.Size(76, 32);
-            this.yenileToolStripMenuItem.Text = "Yenile";
-            this.yenileToolStripMenuItem.Click += new System.EventHandler(this.yenileToolStripMenuItem_Click);
             // 
             // RSSPanel
             // 

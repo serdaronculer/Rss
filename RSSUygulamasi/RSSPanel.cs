@@ -20,6 +20,7 @@ namespace RSSUygulamasi
         {
             InitializeComponent();
             listBox2.HorizontalScrollbar = true;
+            listBox1.HorizontalScrollbar = true;
            
         }
         SqlConnection conn = csSqlConnection.baglanti();
@@ -33,17 +34,9 @@ namespace RSSUygulamasi
         private void RSSPanel_Load(object sender, EventArgs e)
         {
 
-            //ımageList1.ImageSize = new Size(30, 30);
-            //WebClient w = new WebClient();
-            //byte[] veri = w.DownloadData("https://isbh.tmgrup.com.tr/sbh/v5/i/logoBig.png");
-            //MemoryStream stream = new MemoryStream(veri);
-            //Image im = Image.FromStream(stream);
-            //ımageList1.Images.Add(im);
-            //listView1.Items.Add("test", 0);
-            //listView1.LargeImageList = ımageList1;
-
+            
             listeyiDoldur();   // Veritabanında ki Rss adreslerini <RssKanal> KanalListe listesine doldur
-            listele();        // Listbox1 içerisine Kanal Listelerini ekle.
+            listele();        // Listbox1 içerisine Kanal isimlerini ekle.
 
        
 
@@ -52,9 +45,12 @@ namespace RSSUygulamasi
        private void listele()
         {
             List<RssKanalBilgi> liste = XmlCevir();
+
+            //Nesne içerisinde ki string ifade
             listBox1.DisplayMember = "kanalAdi";
 
-            foreach (var item in liste)
+            // kanal listesini listbox1 e cikarma islemi
+            foreach (var item in liste) 
             {
 
                 listBox1.Items.Add(item);
@@ -64,12 +60,14 @@ namespace RSSUygulamasi
 
         private void RSSPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Panel Formu kapatıldığı zaman arkplanda this.hide ile gizli olan formuda kapat.
             Form form = Application.OpenForms.Cast<Form>().Where(f => f.GetType() == typeof(Form1)).FirstOrDefault();       
             form.Close();
         }
 
         public void listeyiDoldur()
         {
+            //Veritabanından gelen RSS adreslerini  List<RssKanal> KanalListe ye doldur.
             conn.Open();
             komut = new SqlCommand("select * from Kanallars", conn);
             da = new SqlDataAdapter(komut);
@@ -88,35 +86,40 @@ namespace RSSUygulamasi
 
          List<RssKanalBilgi> XmlCevir()
         {
-           
+           //List<RssKanal> KanalListesi icerisinde Veritabanından gelen Rss adresleri bulunuyor. Bunları listeden cikar ve gerekli islemleri yap.
+
             List<XElement> rows = null;
             List<XElement> rows2 = null;
             List<RssKanalBilgi> liste = new List<RssKanalBilgi>();
-            foreach (var item in KanalListe)
+
+            foreach (var item in KanalListe)    //Rss Adreslerini listeden çıkar
             {
                 RssKanalBilgi kanalBilgi = new RssKanalBilgi();
-                XDocument XMLKaynak = XDocument.Load(item.rssAdi);
+                XDocument XMLKaynak = XDocument.Load(item.rssAdi);  
 
-                rows = XMLKaynak.Descendants("channel").ToList();
-                rows2 = XMLKaynak.Descendants("item").ToList();
+                rows = XMLKaynak.Descendants("channel").ToList();  //Kanal bilgileri
+                rows2 = XMLKaynak.Descendants("item").ToList();    //İçerik bilgileri
 
-                foreach (var item2 in rows2)
+                
+                foreach (var item2 in rows2)    //Kanalın İçeriğinin alındığı kısım
                 {
                     RssKanalIcerik icerik = new RssKanalIcerik();
                     icerik.baslik = item2.Element("title").Value.ToString();
                     icerik.link = item2.Element("link").Value.ToString();
                     icerik.aciklama = item2.Element("description").Value.ToString();
 
-                    foreach (var item3 in rows)
+                    
+                    foreach (var item3 in rows) //Kanalın genel Bilgilerinin alındığı kısım
                     {
                         kanalBilgi.kanalAdi= item3.Element("title").Value.ToString();
                         icerik.kanalAdi= item3.Element("title").Value.ToString();
                     }
-                    kanalBilgi.ekle(icerik);
+
+                    kanalBilgi.ekle(icerik);    //Classın ekle metodunda bulunan RssKanalIcerik tipinde ki listeye - kanalBilgisini ekleme işlemi
                 }
-                liste.Add(kanalBilgi);
+                liste.Add(kanalBilgi);         //RssKanalBilgi tipinde ki listeye Nesneyi ekleme işlemi
             }
-            return liste;
+            return liste;                      // listeyi döndür
            
         }
 
